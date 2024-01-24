@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Month Selection for 2024</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(to right, #3494e6, #ec6ead);
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            overflow-y: auto;
+            max-height: 100vh;
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+        }
+        button {
+            padding: 10px;
+            margin: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        p {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .instructions {
+            margin-top: 10px;
+            font-size: 14px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Random Month Selection for 2024</h1>
+
+    <ul>
+        <li><strong>A:</strong> Thimothee</li>
+        <li><strong>B:</strong> Vanda</li>
+        <li><strong>C:</strong> Grace</li>
+        <li><strong>D:</strong> Kagame</li>
+        <li><strong>E:</strong> Desire</li>
+        <li><strong>F:</strong> Fifi</li>
+        <li><strong>G:</strong> Ezra</li>
+        <li><strong>H:</strong> Ezra 2</li>
+        <li><strong>I:</strong> KD</li>
+        <li><strong>J:</strong> Tfv</li>
+        <li><strong>K:</strong> Fleury</li>
+    </ul>
+
+    <p>Enter an alphabet (a-k) below:</p>
+    <input type="text" id="alphabetInput" placeholder="Enter an alphabet">
+    <button onclick="generateRandomMonth()">Generate Random Month</button>
+    <p id="result"></p>
+
+    <p class="instructions">Attention: make a screenshot of this response.</p>
+
+    <script>
+        let generatedMonths = [];
+        let usedAlphabets = [];
+
+        function generateRandomMonth() {
+            const alphabetMap = {
+                'a': "Thimothee",
+                'b': "Vanda",
+                'c': "Grace",
+                'd': "Kagame",
+                'e': "Desire",
+                'f': "Fifi",
+                'g': "Ezra",
+                'h': "Ezra 2",
+                'i': "KD",
+                'j': "Tfv",
+                'k': "Fleury"
+            };
+
+            const inputAlphabet = document.getElementById("alphabetInput").value.toLowerCase();
+            const resultParagraph = document.getElementById("result");
+
+            if (usedAlphabets.includes(inputAlphabet)) {
+                resultParagraph.textContent = "You have already used this alphabet. Please enter a different one.";
+                return;
+            }
+
+            if (alphabetMap[inputAlphabet]) {
+                const associatedName = alphabetMap[inputAlphabet];
+                
+                // Ensure the same month is not generated twice
+                let availableMonths = [...Array(11).keys()].map(i => i + 2).filter(month => !generatedMonths.includes(month));
+
+                if (availableMonths.length === 0) {
+                    resultParagraph.textContent = `${associatedName} has already been assigned all months.`;
+                    return;
+                }
+
+                const randomIndex = Math.floor(Math.random() * availableMonths.length);
+                const selectedMonth = availableMonths[randomIndex];
+
+                generatedMonths.push(selectedMonth);
+                usedAlphabets.push(inputAlphabet);
+
+                resultParagraph.textContent = `${associatedName}'s random month: ${selectedMonth}`;
+            } else {
+                resultParagraph.textContent = "Invalid alphabet. Please enter a valid alphabet from the list (a-k).";
+            }
+        }
+    </script>
+</body>
+</html>
